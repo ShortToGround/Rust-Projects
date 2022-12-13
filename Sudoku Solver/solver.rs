@@ -39,7 +39,7 @@ fn is_valid(puzzle: [[usize; 9]; 9], row: usize, col: usize, guess: usize) -> bo
             i += 1;
         }
 
-        // If we haven't returned a 0 by now then this is a valid number
+        // If we haven't returned false by now then this is a valid number
         return true;
 }
 
@@ -51,7 +51,7 @@ fn find_next_blank(puzzle: [[usize; 9]; 9]) -> (usize, usize){
             }
         }
     }
-    // If we never find a blank space, then return -1, -1.
+    // If we never find a blank space, then return 10, 10
     return (10, 10);
 }
 
@@ -101,13 +101,11 @@ fn find_solution(mut puzzle: [[usize; 9]; 9]) -> bool {
         for guess in 1..10 {
             if is_valid(puzzle, row, col, guess){
                 puzzle[row][col] = guess;
-                //println!("Is valid!");
                 if find_solution(puzzle){
                     return true;
                 }
             }
             else{
-                //println!("Is not valid!");
                 puzzle[row][col] = 0;
             }
         }
